@@ -32,7 +32,7 @@ class LoginController extends Controller
         // }
 
         if(Auth::guard('web')->attempt(['email' => $request->email, 'password' => $request->password])){
-            return response()->json(['login' => 'succeeded']);
+            return redirect('/');
         } else {
             return response()->json(['login' => 'fail']);
         }

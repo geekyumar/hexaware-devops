@@ -45,7 +45,7 @@ class ForgotPasswordController extends Controller
             return response()->json(['error' => 'error saving token to db!'], 500);
         }
 
-        $mail_content = "Hi!
+        $mail_content = "Hi, $userDetails->email!
         You have raised a password recovery request to change your password.
         Here is the reset link.
         

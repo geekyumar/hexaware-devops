@@ -2,12 +2,25 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::middleware([\App\Http\Middleware\IsAuthenticated::class])->group(function(){
+    Route::get('/', function () {
+    return view('dashboard');
 });
+
 
 Route::get('/login', function(){
     return view('auth.login');
+});
+
+Route::get('/jobs/create', function(){
+    return view('jobs.create');
+});
+
+
 });
 
 Route::post('/login', [App\Http\Controllers\LoginController::class, 'login']);
