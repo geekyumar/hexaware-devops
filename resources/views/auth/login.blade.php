@@ -88,7 +88,7 @@
         <a href="forgot-password.html">I forgot my password</a>
       </p>-->
       <p class="mb-0 text-center">
-        New Member?<a href="register-v2.html" class="text-center">Register</a>
+        New Member? <a href="/signup" class="text-center">Register</a>
       </p>
     </div>
     <!-- /.card-body -->

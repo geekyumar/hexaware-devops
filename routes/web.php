@@ -14,6 +14,10 @@ Route::middleware([\App\Http\Middleware\IsAuthenticated::class])->group(function
 Route::get('/jobs/create', function(){
     return view('jobs.create');
 });
+
+Route::post('/jobs/create', [App\Http\Controllers\JobController::class, 'create']);
+Route::get('/jobs/publish/{id}', [App\Http\Controllers\JobController::class, 'publish']);
+
 });
 
 // signup

@@ -42,7 +42,7 @@
         <a href="../../index3.html" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="#" class="nav-link">Create Job</a>
       </li>
     </ul>
 
@@ -54,19 +54,6 @@
           <i class="fas fa-search"></i>
         </a>
         <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
         </div>
       </li>
 
@@ -872,6 +859,8 @@
             <h3 class="card-title">Create a Job</h3>
           </div>
           <!-- /.card-header -->
+        <form method="post" action="{{ url('/jobs/create') }}">
+          @csrf
           <div class="card-body">
             <div class="row">
               <div class="col-md-6">
@@ -889,8 +878,13 @@
               <!-- /.col -->
               <div class="col-md-6">
                 <div class="form-group">
+                  <div class="form-group">
+                    <label>Job Description</label>
+                   <textarea class="form-control" name="job_description" rows="1"></textarea>
+                  </div>
                   <label>Department</label>
-                  <select class="select2" multiple="multiple" data-placeholder="Select a Department" style="width: 100%;">
+                  <select class="select2" data-placeholder="Select a Department" name="department" style="width: 100%;">
+                    <option disabled selected>Select Department</option>
                     <option>HR</option>
                     <option>IT (Developer)</option>
                     <option>Marketing</option>
@@ -900,15 +894,7 @@
                   </select>
                 </div>
                 <!-- /.form-group -->
-                <div class="form-group">
-                  <label>Employment Type</label>
-                  <select class="form-control select2" data-placeholder="Select an Employment Type" style="width: 100%;">
-                    <option selected="selected">Full-Time</option>
-                    <option>Part-Time</option>
-                    <option>Contract</option>
-                    <option>Internship</option>
-                  </select>
-                </div>
+
                 <!-- /.form-group -->
               </div>
               <!-- /.col -->
@@ -916,105 +902,58 @@
             <div class="row">
               <div class="col-md-6">
               <div class="form-group">
+                <div class="form-group">
+                  <label>Employment Type</label>
+                  <select class="form-control select2" data-placeholder="Select an Employment Type" name="employment_type" style="width: 100%;">
+                    <option selected="selected">Full-Time</option>
+                    <option>Part-Time</option>
+                    <option>Contract</option>
+                    <option>Internship</option>
+                  </select>
+                </div>
                   <label>Salary Range</label>
                   <input class="form-control" type="number" name="salary_range" placeholder="Salary Range" style="width: 100%;">
             </div>
                 <!-- /.form-group -->
                 <div class="form-group">
-                  <label>Disabled</label>
-                  <select class="form-control select2" disabled="disabled" style="width: 100%;">
-                    <option selected="selected">Alabama</option>
-                    <option>Alaska</option>
-                    <option>California</option>
-                    <option>Delaware</option>
-                    <option>Tennessee</option>
-                    <option>Texas</option>
-                    <option>Washington</option>
-                  </select>
+                  <label>Required Qualifications</label>
+                 <textarea class="form-control" name="required_qualifications" rows="1"></textarea>
                 </div>
                 <!-- /.form-group -->
               </div>
               <!-- /.col -->
               <div class="col-md-6">
                 <div class="form-group">
-                  <label>Multiple</label>
-                  <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
-                    <option>Alabama</option>
-                    <option>Alaska</option>
-                    <option>California</option>
-                    <option>Delaware</option>
-                    <option>Tennessee</option>
-                    <option>Texas</option>
-                    <option>Washington</option>
-                  </select>
+                  <label>Application Deadline</label>
+                  <input class="form-control" name="application_deadline" type="date" id="application-deadline" placeholder="Application Deadline" style="width: 100%;">
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
-                  <label>Disabled Result</label>
-                  <select class="form-control select2" style="width: 100%;">
-                    <option selected="selected">Alabama</option>
-                    <option>Alaska</option>
-                    <option disabled="disabled">California (disabled)</option>
-                    <option>Delaware</option>
-                    <option>Tennessee</option>
-                    <option>Texas</option>
-                    <option>Washington</option>
-                  </select>
+                  <label>Preferred Qualifications</label>
+                 <textarea class="form-control" name="preferred_qualifications" rows="1"></textarea>
                 </div>
                 <!-- /.form-group -->
+                <div class="form-group">
+                  <label>Responsibilities</label>
+                 <textarea class="form-control" name="responsibilities" rows="1"></textarea>
+                </div>
               </div>
               <!-- /.col -->
+            </div>
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Save as draft</button>
+              <button type="button" class="btn btn-primary">Publish Job</button>
             </div>
             <!-- /.row -->
 
-            <h5>Custom Color Variants</h5>
-            <div class="row">
-              <div class="col-12 col-sm-6">
-                <div class="form-group">
-                  <label>Minimal (.select2-danger)</label>
-                  <select class="form-control select2 select2-danger" data-dropdown-css-class="select2-danger" style="width: 100%;">
-                    <option selected="selected">Alabama</option>
-                    <option>Alaska</option>
-                    <option>California</option>
-                    <option>Delaware</option>
-                    <option>Tennessee</option>
-                    <option>Texas</option>
-                    <option>Washington</option>
-                  </select>
-                </div>
-                <!-- /.form-group -->
-              </div>
-              <!-- /.col -->
-              <div class="col-12 col-sm-6">
-                <div class="form-group">
-                  <label>Multiple (.select2-purple)</label>
-                  <div class="select2-purple">
-                    <select class="select2" multiple="multiple" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;">
-                      <option>Alabama</option>
-                      <option>Alaska</option>
-                      <option>California</option>
-                      <option>Delaware</option>
-                      <option>Tennessee</option>
-                      <option>Texas</option>
-                      <option>Washington</option>
-                    </select>
-                  </div>
-                </div>
-                <!-- /.form-group -->
-              </div>
-              <!-- /.col -->
-            </div>
             <!-- /.row -->
           </div>
           <!-- /.card-body -->
-          <div class="card-footer">
-            Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
-            the plugin.
-          </div>
         </div>
         <!-- /.row -->
       </div>
       <!-- /.container-fluid -->
+</form>
     </section>
     <!-- /.content -->
   </div>
@@ -1061,6 +1000,29 @@
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
+
+<script>
+  // Get the date input field
+  const dateInput = document.getElementById('application-deadline');
+
+  // Create a function to format the date as YYYY-MM-DD
+  function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
+
+  // Calculate the future date (e.g., 30 days from today)
+  const today = new Date();
+  const futureDate = new Date();
+  futureDate.setDate(today.getDate() + 30); // Add 30 days
+
+  // Set the min attribute of the date input field
+  dateInput.min = formatDate(futureDate);
+</script>
+
+
 <!-- Page specific script -->
 <script>
   $(function () {
