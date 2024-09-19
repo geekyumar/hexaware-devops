@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Create Jobs - Hexaware</title>
+  <title>Edit Job - Hexaware</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -859,19 +859,19 @@
             <h3 class="card-title">Create a Job</h3>
           </div>
           <!-- /.card-header -->
-        <form method="post" action="{{ url('/jobs/create') }}">
+        <form method="post" action="{{ url('/jobs/edit') }}/{{$job->id}}">
           @csrf
           <div class="card-body">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Job Title</label>
-                  <input class="form-control" name="job_title" placeholder="Job Title" style="width: 100%;">
+                  <input class="form-control" name="job_title" placeholder="Job Title" value="{{ $job->job_title }}" style="width: 100%;">
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Job Location</label>
-                  <input class="form-control" name="job_location" placeholder="Job Location" style="width: 100%;">
+                  <input class="form-control" name="job_location" placeholder="Job Location" value="{{ $job->job_location }}" style="width: 100%;">
                 </div>
                 <!-- /.form-group -->
               </div>
@@ -880,11 +880,11 @@
                 <div class="form-group">
                   <div class="form-group">
                     <label>Job Description</label>
-                   <textarea class="form-control" name="job_description" rows="1"></textarea>
+                   <textarea class="form-control" name="job_description" rows="1">{{ $job->job_description }}</textarea>
                   </div>
                   <label>Department</label>
-                  <select class="select2" data-placeholder="Select a Department" name="department" style="width: 100%;">
-                    <option disabled selected>Select Department</option>
+                  <select class="select2" data-placeholder="Select a Department" value="{{ $job->job_department }}" name="department" style="width: 100%;">
+                    <option selected>{{ $job->department }}</option>
                     <option>HR</option>
                     <option>IT (Developer)</option>
                     <option>Marketing</option>
@@ -905,19 +905,19 @@
                 <div class="form-group">
                   <label>Employment Type</label>
                   <select class="form-control select2" data-placeholder="Select an Employment Type" name="employment_type" style="width: 100%;">
-                    <option selected="selected">Full-Time</option>
+                    <option selected="selected">{{ $job->employment_type }}</option>
                     <option>Part-Time</option>
                     <option>Contract</option>
                     <option>Internship</option>
                   </select>
                 </div>
                   <label>Salary Range</label>
-                  <input class="form-control" type="number" name="salary_range" placeholder="Salary Range" style="width: 100%;">
+                  <input class="form-control" type="number" name="salary_range" value="{{ $job->salary_range }}" placeholder="Salary Range" style="width: 100%;">
             </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Required Qualifications</label>
-                 <textarea class="form-control" name="required_qualifications" rows="1"></textarea>
+                 <textarea class="form-control" name="required_qualifications" rows="1">{{ $job->job_title }}</textarea>
                 </div>
                 <!-- /.form-group -->
               </div>
@@ -925,23 +925,24 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Application Deadline</label>
-                  <input class="form-control" name="application_deadline" type="date" id="application-deadline" placeholder="Application Deadline" style="width: 100%;">
+                  <input class="form-control" name="application_deadline" type="date" id="application-deadline" value="{{ $job->application_deadline }}" placeholder="Application Deadline" style="width: 100%;">
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Preferred Qualifications</label>
-                 <textarea class="form-control" name="preferred_qualifications" rows="1"></textarea>
+                 <textarea class="form-control" name="preferred_qualifications" rows="1">{{ $job->preferred_qualifications }}</textarea>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Responsibilities</label>
-                 <textarea class="form-control" name="responsibilities" rows="1"></textarea>
+                 <textarea class="form-control" name="responsibilities" rows="1">{{ $job->responsibilities }}</textarea>
                 </div>
               </div>
               <!-- /.col -->
             </div>
             <div class="card-footer">
               <button type="submit" class="btn btn-primary">Save as draft</button>
+              <button type="button" id="publish" class="btn btn-primary">Publish Job</button>
             </div>
             <!-- /.row -->
 
@@ -957,6 +958,12 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 3.2.0
+    </div>
+    <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+  </footer>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -993,6 +1000,31 @@
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
+
+<script>
+
+    $('#publish').on('click', ()=>{
+        $.ajax({
+            url: '{{ url('/jobs/publish/') }}/{{$job->id}}',
+            type: 'get',
+
+            success: function(response, textStatus, xhr) {
+                if(xhr.status == 200){
+                    $('#publish').addClass('disabled').text('Published')
+                    setTimeout(() => {
+                        window.location.href="/jobs/list?status=published"
+                    }, 1000);
+                }
+            },
+                error: function(xhr) {
+                if(xhr.status == 500){
+                    console.log('error');
+                }
+            }
+        })
+    })
+
+    </script>
 
 <script>
   // Get the date input field

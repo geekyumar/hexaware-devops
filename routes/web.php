@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -11,12 +12,23 @@ Route::middleware([\App\Http\Middleware\IsAuthenticated::class])->group(function
     return view('dashboard');
 });
 
+Route::get('/logout', function(){
+    Auth::logout();
+    return redirect('/login');
+});
+
 Route::get('/jobs/create', function(){
     return view('jobs.create');
 });
 
+Route::get('/jobs/list', [App\Http\Controllers\JobController::class, 'list']);
+
 Route::post('/jobs/create', [App\Http\Controllers\JobController::class, 'create']);
 Route::get('/jobs/publish/{id}', [App\Http\Controllers\JobController::class, 'publish']);
+Route::get('/jobs/unpublish/{id}', [App\Http\Controllers\JobController::class, 'unpublish']);
+Route::get('/jobs/edit/{id}', [App\Http\Controllers\JobController::class, 'edit']);
+Route::post('/jobs/edit/{id}', [App\Http\Controllers\JobController::class, 'update']);
+Route::get('/jobs/delete/{id}', [App\Http\Controllers\JobController::class, 'delete']);
 
 });
 
