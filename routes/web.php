@@ -21,14 +21,23 @@ Route::get('/jobs/create', function(){
     return view('jobs.create');
 });
 
-Route::get('/jobs/list', [App\Http\Controllers\JobController::class, 'list']);
+// Jobs Route
 
+Route::get('/jobs/list', [App\Http\Controllers\JobController::class, 'list']);
 Route::post('/jobs/create', [App\Http\Controllers\JobController::class, 'create']);
 Route::get('/jobs/publish/{id}', [App\Http\Controllers\JobController::class, 'publish']);
 Route::get('/jobs/unpublish/{id}', [App\Http\Controllers\JobController::class, 'unpublish']);
 Route::get('/jobs/edit/{id}', [App\Http\Controllers\JobController::class, 'edit']);
 Route::post('/jobs/edit/{id}', [App\Http\Controllers\JobController::class, 'update']);
 Route::get('/jobs/delete/{id}', [App\Http\Controllers\JobController::class, 'delete']);
+
+
+// Application Tracking Route
+
+Route::get('/applications', [App\Http\Controllers\ApplicationController::class, 'index']);
+Route::get('/applications/list', [App\Http\Controllers\ApplicationController::class, 'list']);
+Route::get('/applications/view', [App\Http\Controllers\ApplicationController::class, 'view']);
+Route::get('/applications/notifications', [App\Http\Controllers\ApplicationController::class, 'listNotifications']);
 
 });
 
