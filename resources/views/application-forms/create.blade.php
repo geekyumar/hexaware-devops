@@ -754,9 +754,9 @@
                     <select class="form-control" name="associated_jobs" required>
                       <option value="" disabled selected>Select a job</option>
                       <!-- List of job postings as options -->
-                      <option value="job1">Job Posting 1</option>
-                      <option value="job2">Job Posting 2</option>
-                      <option value="job3">Job Posting 3</option>
+                      <option>Job Posting 1</option>
+                      <option>Job Posting 2</option>
+                      <option>Job Posting 3</option>
                     </select>
                     <div class="invalid-feedback">
                       Please select a job.
@@ -764,6 +764,72 @@
                   </div>
                 </div>
               </div>
+
+
+              @foreach ($formFields as $field)
+
+              @php $fieldOptions = json_decode($field->field_options, true) @endphp
+              
+              @switch($field->field_type)
+    @case('textbox')
+        <div class="col-md-6">
+        <div class="form-group">
+            <label for="{{ $field->field_name }}">{{ $field->field_name }}</label>
+            <input type="text" class="form-control" name="{{ $field->field_name }}" required>
+        </div>
+        </div>
+        @break
+
+    @case('date')
+        <div class="form-group">
+            <label for="{{ $field->field_name }}">{{ $field->field_name }}</label>
+            <input type="date" class="form-control" name="{{ $field->field_name }}" required>
+        </div>
+        @break
+
+    @case('dropdown')
+        <div class="form-group">
+            <label for="{{ $field->field_name }}">{{ $field->field_name }}</label>
+            <select class="form-control" name="{{ $field->field_name }}" required>
+                <!-- Example options, these can be dynamic -->
+                @foreach ($fieldOptions as $options)
+                    <option>{{ $options }}</option>
+                    @endforeach
+            </select>
+        </div>
+        @break
+
+    @case('checkbox')
+        <div class="form-group">
+            <label>{{ $field->field_name }}</label><br>
+
+            @foreach ($fieldOptions as $options)
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" value="{{ $options }}" name="{{ $field->field_name }}[]">
+                <label class="form-check-label">{{ $options }}</label>
+            </div>
+                    @endforeach
+        </div>
+        @break
+
+    @case('radio')
+        <div class="form-group">
+            <label>{{ $field->field_name }}</label><br>
+
+            @foreach ($fieldOptions as $options)
+            <div class="form-check">
+                <input type="radio" class="form-check-input" id="{{ $field->field_name }}1" name="{{ $field->field_name }}" required>
+                <label class="form-check-label" for="{{ $field->field_name }}1">{{ $options }}</label>
+            </div>
+                    @endforeach
+        </div>
+        @break
+
+    @default
+        <p>Unknown field type: {{ $field->field_type }}</p>
+@endswitch
+              
+              @endforeach
 
                         
               <!-- Save Form Button -->

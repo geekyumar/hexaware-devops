@@ -54,8 +54,10 @@ Route::post('/application-forms/create', [App\Http\Controllers\ApplicationFormCo
 Route::post('/application-forms/add-field', [App\Http\Controllers\ApplicationFormController::class, 'addField']);
 Route::get('/application-forms/delete/{id}', [App\Http\Controllers\ApplicationFormController::class, 'delete']);
 Route::get('/application-forms/edit/{id}', [App\Http\Controllers\ApplicationFormController::class, 'edit']);
+Route::post('/application-forms/update/{id}', [App\Http\Controllers\ApplicationFormController::class, 'update']);
 
-Route::get('/application-forms/editField/{id}', [App\Http\Controllers\ApplicationFormController::class, 'editField']);
+Route::get('/application-forms/editField/{id}', [App\Http\Controllers\ApplicationFormController::class, 'editFieldPage']);
+Route::post('/application-forms/editField/{id}', [App\Http\Controllers\ApplicationFormController::class, 'editField']);
 Route::get('/application-forms/deleteField/{id}', [App\Http\Controllers\ApplicationFormController::class, 'deleteField']);
 
 });

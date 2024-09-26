@@ -734,7 +734,7 @@
             <h3 class="card-title">Add Field Modal</h3>
           </div>
           <!-- /.card-header -->
-          <form method="post" action="{{ url('/application-forms/add-field') }}">
+          <form method="post" action="{{ url('/application-forms/editField') }}/{{$fields->id}}">
             @csrf
             <div class="card-body">
                 <!-- Field Name Section -->
@@ -744,7 +744,7 @@
                       <div class="col-md-12">
                         <div class="form-group">
                           <label for="fieldName">Field Name</label>
-                          <input type="text" class="form-control" id="fieldName" name="field_name" placeholder="Enter the field name" required>
+                          <input type="text" class="form-control" id="fieldName" name="field_name" value="{{ $fields->field_name }}" placeholder="Enter the field name" required>
                           <div class="invalid-feedback">
                             Please enter the field name.
                           </div>
@@ -760,7 +760,7 @@
                           <div class="mr-3" style="flex: 1;">
                             <label for="fieldType">Field Type</label>
                             <select class="form-control" id="fieldType" name="field_type" required onchange="toggleFieldOptions()" style="width: 100%;">
-                              <option value="" disabled selected>Select field type</option>
+                              <option value="{{ $fields->field_type }}" selected>{{ $fields->field_type }}</option>
                               <option value="textbox">Textbox</option>
                               <option value="dropdown">Dropdown</option>
                               <option value="checkbox">Checkbox</option>
@@ -775,7 +775,7 @@
                           <!-- Field Options Label and Textbox (Hidden initially) -->
                           <div class="ml-3" style="flex: 1; display: none;" id="fieldOptionsContainer">
                             <label for="fieldOptions">Field Options</label>
-                            <input type="text" class="form-control" id="fieldOptions" name="field_options" placeholder="Enter options separated by commas" style="width: 100%;">
+                            <input type="text" class="form-control" id="fieldOptions" name="field_options" value="{{ $fields->field_options }}" placeholder="Enter options separated by commas" style="width: 100%;">
                             <div class="invalid-feedback">
                               Please enter the field options.
                             </div>

@@ -734,14 +734,14 @@
             <h3 class="card-title"> Edit Form</h3>
           </div>
           <!-- /.card-header -->
-          <form method="post" action="{{ url('/jobs/create') }}">
+          <form method="post" action="{{ url('/application-forms/update/') }}/{{$forms->id}}">
             @csrf
             <div class="card-body">
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="formName">Form Name</label>
-                    <input type="text" class="form-control" id="formName" name="report_name" placeholder="Enter the form name" required>
+                    <input type="text" class="form-control" id="formName" value="{{$forms->form_name}}" name="form_name" placeholder="Enter the form name" required>
                     <div class="invalid-feedback">
                       Please enter the form name.
                     </div>
@@ -751,12 +751,12 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="associatedJob">Associated Job</label>
-                    <select class="form-control" id="associatedJob" name="associated_job" required>
-                      <option value="" disabled selected>Select a job</option>
+                    <select class="form-control" id="associatedJob" name="associated_jobs" required>
+                      <option selected>{{$forms->associated_jobs}}</option>
                       <!-- List of job postings as options -->
-                      <option value="job1">Job Posting 1</option>
-                      <option value="job2">Job Posting 2</option>
-                      <option value="job3">Job Posting 3</option>
+                      <option>Job Posting 1</option>
+                      <option>Job Posting 2</option>
+                      <option>Job Posting 3</option>
                     </select>
                     <div class="invalid-feedback">
                       Please select a job.
@@ -764,64 +764,85 @@
                   </div>
                 </div>
               </div>
-          
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Form Fields</label>
-                    <button type="button" class="btn btn-primary btn-sm ml-2" data-toggle="modal" data-target="#addFieldModal">
-                      Add Field
-                    </button>
-                  </div>
-                </div>
-              </div>
-          
-              <div class="row">
-                <div class="col-md-12">
-                  <label class="pt-2">Field List Table</label>
-                  <div class="card-body table-responsive p-0 pt-2">
-                    <table class="table table-hover text-nowrap">
-                      <thead>
-                        <tr>
-                          <th>Field Name</th>
-                          <th>Field Type</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <!-- Example Row 1 -->
-                        <tr>
-                          <td>Full Name</td>
-                          <td>Text</td>
-                          <td>
-                            <div class="btn-group">
-                              <a href="http://localhost:8000/fields/edit/1" class="btn btn-warning btn-sm">Edit</a>
-                              <a href="http://localhost:8000/fields/delete/1" class="btn btn-danger btn-sm">Delete</a>
-                            </div>
-                          </td>
-                        </tr>
-                        <!-- Example Row 2 -->
-                        <tr>
-                          <td>Email</td>
-                          <td>Email</td>
-                          <td>
-                            <div class="btn-group">
-                              <a href="http://localhost:8000/fields/edit/2" class="btn btn-warning btn-sm">Edit</a>
-                              <a href="http://localhost:8000/fields/delete/2" class="btn btn-danger btn-sm">Delete</a>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-          
+
+              @foreach ($formFields as $field)
+              @php $fieldOptions = json_decode($field->field_options, true) @endphp
+              
+              @switch($field->field_type)
+    @case('textbox')
+        <div class="col-md-6">
+        <div class="form-group">
+            <label for="{{ $field->field_name }}">{{ $field->field_name }}</label>
+            <input type="text" class="form-control" name="{{ $field->field_name }}" value="{{ $forms->{$field->field_name} }}" required>
+        </div>
+        </div>
+        @break
+
+    @case('date')
+        <div class="form-group">
+            <label for="{{ $field->field_name }}">{{ $field->field_name }}</label>
+            <input type="date" class="form-control" value="{{ $forms->{$field->field_name} }}" name="{{ $field->field_name }}" required>
+        </div>
+        @break
+
+        @case('dropdown')
+        <div class="form-group">
+            <label for="{{ $field->field_name }}">{{ $field->field_name }}</label>
+            <select class="form-control" name="{{ $field->field_name }}" required>
+                <!-- Example options, these can be dynamic -->
+                <option selected>{{ $forms->{$field->field_name} }}</option>
+                @foreach ($fieldOptions as $options)
+                    <option>{{ $options }}</option>
+                    @endforeach
+            </select>
+        </div>
+        @break
+
+        @case('checkbox')
+<div class="form-group">
+    <label>{{ $field->field_name }}</label><br>
+
+    @foreach ($fieldOptions as $options)
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" 
+               value="{{ $options }}" 
+               name="{{ $field->field_name }}[]"
+               @if(in_array($options, json_decode($forms->{$field->field_name}, true), true)) checked @endif>
+        <label class="form-check-label">{{ $options }}</label>
+    </div>
+    @endforeach
+
+</div>
+@break
+
+@case('radio')
+<div class="form-group">
+    <label>{{ $field->field_name }}</label><br>
+
+    @foreach ($fieldOptions as $options)
+    <div class="form-check">
+        <input type="radio" class="form-check-input" 
+               id="{{ $field->field_name }}{{ $loop->index }}" 
+               name="{{ $field->field_name }}" 
+               value="{{ $options }}" 
+               @if($forms->{$field->field_name} == $options) checked @endif 
+               required>
+        <label class="form-check-label" for="{{ $field->field_name }}{{ $loop->index }}">{{ $options }}</label>
+    </div>
+    @endforeach
+</div>
+@break
+
+    @default
+        <p>Unknown field type: {{ $field->field_type }}</p>
+@endswitch
+              
+              @endforeach
               <!-- Save Form Button -->
               <div class="form-group">
                 <div class="row mt-3">
                   <div class="col-md-12 d-flex justify-content-center">
-                    <button type="button" class="btn btn-primary btn-sm" id="saveFormButton">
+                    <button type="submit" class="btn btn-primary btn-sm" id="saveFormButton">
                       Save Form
                     </button>
                   </div>

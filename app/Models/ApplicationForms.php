@@ -16,4 +16,6 @@ class ApplicationForms extends Model
         'associated_jobs',
         'additional_fields'
     ];
+
+    protected $guarded = [];
 }
