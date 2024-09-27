@@ -6,7 +6,20 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Http\\Controllers\\ApplicationController' => $baseDir . '/app/Http/Controllers/ApplicationController.php',
+    'App\\Http\\Controllers\\ApplicationFormController' => $baseDir . '/app/Http/Controllers/ApplicationFormController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+    'App\\Http\\Controllers\\CustomReportController' => $baseDir . '/app/Http/Controllers/CustomReportController.php',
+    'App\\Http\\Controllers\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/ForgotPasswordController.php',
+    'App\\Http\\Controllers\\JobController' => $baseDir . '/app/Http/Controllers/JobController.php',
+    'App\\Http\\Controllers\\LoginController' => $baseDir . '/app/Http/Controllers/LoginController.php',
+    'App\\Http\\Controllers\\signupcontroller' => $baseDir . '/app/Http/Controllers/signupcontroller.php',
+    'App\\Http\\Middleware\\IsAuthenticated' => $baseDir . '/app/Http/Middleware/IsAuthenticated.php',
+    'App\\Models\\ApplicationForms' => $baseDir . '/app/Models/ApplicationForms.php',
+    'App\\Models\\ForgotPassword' => $baseDir . '/app/Models/ForgotPassword.php',
+    'App\\Models\\FormsAddField' => $baseDir . '/app/Models/FormsAddField.php',
+    'App\\Models\\Jobs' => $baseDir . '/app/Models/Jobs.php',
+    'App\\Models\\LoginModel' => $baseDir . '/app/Models/LoginModel.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'Attribute' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',

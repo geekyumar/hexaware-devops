@@ -37,6 +37,7 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'ce9671a430e4846b44e1c68c7611f9f5' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'a1cfe24d14977df6878b9bf804af2d1c' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Phpunit/Autoload.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
+        'd21d43db5f6e840ee7b10744ec7fdf66' => __DIR__ . '/../..' . '/app/Helpers/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -508,7 +509,20 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
     );
 
     public static $classMap = array (
+        'App\\Http\\Controllers\\ApplicationController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApplicationController.php',
+        'App\\Http\\Controllers\\ApplicationFormController' => __DIR__ . '/../..' . '/app/Http/Controllers/ApplicationFormController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\CustomReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/CustomReportController.php',
+        'App\\Http\\Controllers\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/ForgotPasswordController.php',
+        'App\\Http\\Controllers\\JobController' => __DIR__ . '/../..' . '/app/Http/Controllers/JobController.php',
+        'App\\Http\\Controllers\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoginController.php',
+        'App\\Http\\Controllers\\signupcontroller' => __DIR__ . '/../..' . '/app/Http/Controllers/signupcontroller.php',
+        'App\\Http\\Middleware\\IsAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/IsAuthenticated.php',
+        'App\\Models\\ApplicationForms' => __DIR__ . '/../..' . '/app/Models/ApplicationForms.php',
+        'App\\Models\\ForgotPassword' => __DIR__ . '/../..' . '/app/Models/ForgotPassword.php',
+        'App\\Models\\FormsAddField' => __DIR__ . '/../..' . '/app/Models/FormsAddField.php',
+        'App\\Models\\Jobs' => __DIR__ . '/../..' . '/app/Models/Jobs.php',
+        'App\\Models\\LoginModel' => __DIR__ . '/../..' . '/app/Models/LoginModel.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',

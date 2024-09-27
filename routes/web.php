@@ -32,7 +32,9 @@ Route::get('/jobs/delete/{id}', [App\Http\Controllers\JobController::class, 'del
 
 Route::get('/applications', [App\Http\Controllers\ApplicationController::class, 'index']);
 Route::get('/applications/list', [App\Http\Controllers\ApplicationController::class, 'list']);
-Route::get('/applications/view', [App\Http\Controllers\ApplicationController::class, 'view']);
+Route::get('/applications/view/{id}', [App\Http\Controllers\ApplicationController::class, 'view']);
+Route::post('/applications/update/{id}', [App\Http\Controllers\ApplicationController::class, 'update']);
+Route::get('/applications/reject/{id}', [App\Http\Controllers\ApplicationController::class, 'rejectApplication']);
 Route::get('/applications/notifications', [App\Http\Controllers\ApplicationController::class, 'listNotifications']);
 
 // Custom Reports Route

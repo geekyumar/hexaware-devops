@@ -882,21 +882,31 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <td>1</td>
-                    <td>Umar</td>
-                    <td>Developer</td>
-                    <td>On review</td>
-                    <td>Today</td>
+                  @foreach ($jobApplications as $application)
+                  @php $jobs = getJobDetails($application->job_id); @endphp
+
+                  <td>{{ $application->id }}</td>
+                  <td>{{ $application->applicant_name }}</td>
+                  <td>{{ $jobs->job_title }}</td>
+                  <td>{{ $application->application_status }}</td>
+                  <td>{{ $application->created_at}}</td>
                     <td>
-                    <div class="btn-group">
-                        <a href="{{ url('/jobs/view/') }}" class="btn btn-info">View</a>
+                  <div class="btn-group">
+                        <a href="{{ url('/applications/view') }}/{{$application->id}}" class="btn btn-info">View</a>
                     
-                        <a href="{{ url('/jobs/edit') }}" class="btn btn-info">Move to Next Stage</a>
+                        <a href="{{ url('/applications/next') }}/{{$application->id}}" class="btn btn-info">Move to Next Stage</a>
 
-                        <a href="{{ url('/jobs/delete') }}" class="btn btn-info">Reject</a>
-                        </div>
-                    </td>
+                        <a href="{{ url('/applications/reject', $application->id) }}" class="btn btn-info
+   @if($application->application_status == 'Rejected') 
+       d-none
+   @endif
+">
+    Reject
+</a>
+                      </div>
+</td>
 
+@endforeach
                     </tbody>
                 </table>
               </div>

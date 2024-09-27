@@ -856,19 +856,19 @@
             <h3 class="card-title">Create a Job</h3>
           </div>
           <!-- /.card-header -->
-        <form method="post" action="{{ url('/jobs/create') }}">
+        <form method="post" action="{{ url('/applications/update/') }}/{{$jobApplication->id}}">
           @csrf
           <div class="card-body">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Applicant Name</label>
-                  <p>Umar</p>
+                  <p>{{ $jobApplication->applicant_name }}</p>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Applicant Email</label>
-                  <p>umar@example.com</p>
+                  <p>{{ $jobApplication->email }}</p>
                 </div>
                 <!-- /.form-group -->
               </div>
@@ -877,7 +877,7 @@
                 <div class="form-group">
                   <div class="form-group">
                     <label>Applicant Phone</label>
-                   <p>12345</p>
+                    <p>{{ $jobApplication->phone }}</p>
                   </div>
                   <label>Applicant Resume</label>
                   <button type="button" class="btn btn-block btn-secondary col-4">Download Resume</button>
@@ -886,6 +886,8 @@
 
                 <!-- /.form-group -->
               </div>
+
+              @php $job = getJobdetails($jobApplication->job_id); @endphp
               
               <!-- /.col -->
             </div>
@@ -894,15 +896,15 @@
               <div class="form-group">
                 <div class="form-group">
                   <label>Job Title</label>
-                  <p>Dev</p>
+                  <p>{{$job->job_title}}</p>
                 </div>
                   <label>Department</label>
-                  <p>IT</p>
+                  <p>{{$job->department}}</p>
             </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Location</label>
-                  <p>Chennai</p>
+                  <p>{{$job->job_location}}</p>
                 </div>
                 <!-- /.form-group -->
               </div>
@@ -910,13 +912,13 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Application Status</label>
-                  <p>On Review</p>
+                  <p>{{ $jobApplication->application_status }}</p>
                 </div>
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Change Application Status</label>
                   <select class="form-control select2" data-placeholder="Select an Employment Type" name="application_status" style="width: 100%;">
-                    <option selected disabled>Select new status</option>
+                    <option selected>{{ $jobApplication->application_status }}</option>
                     <option>Applied</option>
                     <option>In Review</option>
                     <option>Interview</option>
@@ -927,7 +929,7 @@
                 <!-- /.form-group -->
                 <div class="form-group">
                   <label>Notes</label>
-                 <textarea class="form-control" name="notes" rows="2"></textarea>
+                 <textarea class="form-control" name="notes" rows="2">{{ $jobApplication->notes }}</textarea>
                 </div>
               </div>
               <!-- /.col -->

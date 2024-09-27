@@ -737,7 +737,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3>{{ count($jobApplications) }}</h3>
 
                 <p>No. of Applications Received</p>
               </div>
@@ -751,7 +751,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>65</h3>
+                <h3>{{ getJobsCount() }}</h3>
 
                 <p>No. of Active Job Openings</p>
               </div>
@@ -800,20 +800,31 @@
                   </thead>
                   <tbody>
 
-                  <td>1</td>
-                  <td>Umar</td>
-                  <td>Developer</td>
-                  <td>On review</td>
-                  <td>Today</td>
+                  @foreach ($jobApplications as $application)
+                  @php $jobs = getJobDetails($application->job_id); @endphp
+
+                  <td>{{ $application->id }}</td>
+                  <td>{{ $application->applicant_name }}</td>
+                  <td>{{ $jobs->job_title }}</td>
+                  <td>{{ $application->application_status }}</td>
+                  <td>{{ $application->created_at}}</td>
                     <td>
                   <div class="btn-group">
-                        <a href="{{ url('/jobs/view/') }}" class="btn btn-info">View</a>
+                        <a href="{{ url('/applications/view') }}/{{$application->id}}" class="btn btn-info">View</a>
                     
-                        <a href="{{ url('/jobs/edit') }}" class="btn btn-info">Move to Next Stage</a>
-        
-                        <a href="{{ url('/jobs/delete') }}" class="btn btn-info">Reject</a>
+                        <a href="{{ url('/applications/next') }}/{{$application->id}}" class="btn btn-info">Move to Next Stage</a>
+
+                        <a href="{{ url('/applications/reject', $application->id) }}" class="btn btn-info
+   @if($application->application_status == 'Rejected') 
+       d-none
+   @endif
+">
+    Reject
+</a>
                       </div>
 </td>
+
+@endforeach
 
                   </tbody>
                 </table>
@@ -823,6 +834,7 @@
             <!-- /.card -->
           </div>
         </div>
+        <a href="{{ url('/applications/list') }}" class="btn btn-info text-center">See all Applications</a>
           <!-- right col -->
         </div>
         <!-- /.row (main row) -->
