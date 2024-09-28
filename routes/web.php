@@ -36,6 +36,8 @@ Route::get('/applications/view/{id}', [App\Http\Controllers\ApplicationControlle
 Route::post('/applications/update/{id}', [App\Http\Controllers\ApplicationController::class, 'update']);
 Route::get('/applications/reject/{id}', [App\Http\Controllers\ApplicationController::class, 'rejectApplication']);
 Route::get('/applications/notifications', [App\Http\Controllers\ApplicationController::class, 'listNotifications']);
+Route::get('/applications/notifications/markAsRead/{id}', [App\Http\Controllers\ApplicationController::class, 'markAsRead']);
+Route::get('/applications/notifications/delete/{id}', [App\Http\Controllers\ApplicationController::class, 'deleteNotification']);
 
 // Custom Reports Route
 
@@ -51,7 +53,6 @@ Route::get('/application-forms', [App\Http\Controllers\ApplicationFormController
 Route::get('/application-forms/create', [App\Http\Controllers\ApplicationFormController::class, 'createPage']);
 Route::get('/application-forms/add-field', function() { return view('application-forms.add-field');});
 
-
 Route::post('/application-forms/create', [App\Http\Controllers\ApplicationFormController::class, 'create']);
 Route::post('/application-forms/add-field', [App\Http\Controllers\ApplicationFormController::class, 'addField']);
 Route::get('/application-forms/delete/{id}', [App\Http\Controllers\ApplicationFormController::class, 'delete']);
@@ -61,6 +62,18 @@ Route::post('/application-forms/update/{id}', [App\Http\Controllers\ApplicationF
 Route::get('/application-forms/editField/{id}', [App\Http\Controllers\ApplicationFormController::class, 'editFieldPage']);
 Route::post('/application-forms/editField/{id}', [App\Http\Controllers\ApplicationFormController::class, 'editField']);
 Route::get('/application-forms/deleteField/{id}', [App\Http\Controllers\ApplicationFormController::class, 'deleteField']);
+
+// Interview Scheduling Routes
+
+Route::get('/interview', [App\Http\Controllers\InterviewController::class, 'index']);
+Route::get('/interview/schedule', [App\Http\Controllers\InterviewController::class, 'schedulingScreen']);
+Route::post('/interview/schedule', [App\Http\Controllers\InterviewController::class, 'schedule']);
+Route::get('/interview/view/{id}', [App\Http\Controllers\InterviewController::class, 'view']);
+Route::get('/interview/reschedule/{id}', [App\Http\Controllers\InterviewController::class, 'rescheduleScreen']);
+Route::post('/interview/reschedule/{id}', [App\Http\Controllers\InterviewController::class, 'reschedule']);
+Route::get('/interview/cancel/{id}', [App\Http\Controllers\InterviewController::class, 'cancel']);
+
+Route::post('/interview/schedule', [App\Http\Controllers\InterviewController::class, 'schedule']);
 
 });
 

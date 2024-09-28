@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\JobApplications;
+use App\Models\Notifications;
 use Illuminate\Support\Facades\Validator;
 
 class ApplicationController extends Controller
@@ -46,6 +47,16 @@ class ApplicationController extends Controller
     }
 
     public function listNotifications(Request $request){
-        return view('applications.notifications');
+        return view('applications.notifications', ['notifications' => Notifications::all()]);
+    }
+
+    public function markAsRead(Request $request, $id){
+        Notifications::where('id', $id)->update(['is_read' => 1]);
+        return redirect('/applications/notifications');
+    }
+
+    public function deleteNotification(Request $request, $id){
+        Notifications::where('id', $id)->delete();
+        return redirect('/applications/notifications');
     }
 }
