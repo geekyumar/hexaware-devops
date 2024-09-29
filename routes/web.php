@@ -72,11 +72,11 @@ Route::get('/interview/view/{id}', [App\Http\Controllers\InterviewController::cl
 Route::get('/interview/reschedule/{id}', [App\Http\Controllers\InterviewController::class, 'rescheduleScreen']);
 Route::post('/interview/reschedule/{id}', [App\Http\Controllers\InterviewController::class, 'reschedule']);
 Route::get('/interview/cancel/{id}', [App\Http\Controllers\InterviewController::class, 'cancel']);
-
 Route::post('/interview/schedule', [App\Http\Controllers\InterviewController::class, 'schedule']);
 
 });
-
+Route::post('/interview/applicantNameList', [App\Http\Controllers\InterviewController::class, 'applicantNameList'])->withoutMiddleware('web', 'csrf');
+Route::post('/interview/jobsList/{id}', [App\Http\Controllers\InterviewController::class, 'getJobsList'])->withoutMiddleware('web', 'csrf');
 // signup
 Route::get('/signup', function(){
     return view('signup');

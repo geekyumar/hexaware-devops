@@ -742,10 +742,6 @@
                             <label for="applicantName">Applicant Name</label>
                             <select class="form-control" id="applicantName" name="applicant_id" required>
                                 <option value="" disabled selected>Select applicant</option>
-                                <option value="1">John Doe</option>
-                                <option value="2">Jane Smith</option>
-                                <option value="3">Michael Johnson</option>
-                                <option value="4">Emily Davis</option>
                             </select>
                             <div class="invalid-feedback">
                                 Please select an applicant.
@@ -758,10 +754,6 @@
                             <label for="jobTitle">Job Title</label>
                             <select class="form-control" id="jobTitle" name="job_id" required>
                                 <option value="" disabled selected>Select job title</option>
-                                <option>Software Engineer</option>
-                                <option>Data Analyst</option>
-                                <option>Product Manager</option>
-                                <option>UI/UX Designer</option>
                             </select>
                             <div class="invalid-feedback">
                                 Please select a job title.
@@ -1039,6 +1031,58 @@
   // Set the min attribute of the date input field
   dateInput.min = formatDate(futureDate);
 </script>
+
+<script>
+
+  $.ajax({
+    url: '{{ url('/interview/applicantNameList') }}',
+    type: 'POST',
+    dataType: 'json',
+
+    success: function(response) {
+    // Loop through the applicant_id array
+    response.applicant_id.forEach((id, index) => {
+        // Get the corresponding applicant name using the same index
+        const name = response.applicant_name[index];
+        
+        // Append a new option to the select element
+        $('#applicantName').append(new Option(name, id));
+    });
+}, error: function(xhr, responseData){
+      if(xhr.status == 500){
+        console.log('error');
+      }
+    }
+  })
+
+
+
+  $('#applicantName').on('change', ()=>{
+    applicant_id = $('#applicantName').val()
+    $.ajax({
+    url: '{{ url('/interview/jobsList') }}/' + applicant_id,
+    type: 'POST',
+    dataType: 'json',
+
+    success: function(response) {
+      response.job_id.forEach((id, index) => {
+        // Get the corresponding applicant name using the same index
+        const name = response.job_title[index];
+        
+        // Append a new option to the select element
+        $('#jobTitle').append(new Option(name, id));
+    });
+}, error: function(xhr, responseData){
+      if(xhr.status == 500){
+        console.log('error');
+      }
+    }
+  })
+  })
+
+ 
+
+  </script>
 
 
 <!-- Page specific script -->

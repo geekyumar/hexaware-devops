@@ -81,4 +81,29 @@ class InterviewController extends Controller
 
         return redirect('/interview');
     }
+
+    public function applicantNameList(Request $request){
+        $applicantData = Interview::select('applicant_id')->distinct()->get();
+        $applicant_id = [];
+        $applicant_name = [];
+
+        foreach ($applicantData as $key => $value){
+            array_push($applicant_id, $value['applicant_id']);
+            array_push($applicant_name, getApplicantDetails($value['applicant_id'])->applicant_name);
+        }
+        return response()->json(['applicant_id' => $applicant_id, 'applicant_name' => $applicant_name]);
+    }
+
+    public function getJobsList(Request $request, $id){
+        $job_data = Interview::where('applicant_id', $id)->select('job_id')->distinct()->get();
+        $job_id = [];
+        $job_title = [];
+
+        foreach ($job_data as $id){
+            array_push($job_id, getJobDetails($id['job_id'])->id);
+            array_push($job_title, getJobDetails($id['job_id'])->job_title);
+            // return response(getJobDetails($id['job_id'])->job_title);
+        }
+        return response()->json(['job_id' => $job_id, 'job_title' => $job_title]);
+    }
 }
