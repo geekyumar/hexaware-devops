@@ -74,9 +74,17 @@ Route::post('/interview/reschedule/{id}', [App\Http\Controllers\InterviewControl
 Route::get('/interview/cancel/{id}', [App\Http\Controllers\InterviewController::class, 'cancel']);
 Route::post('/interview/schedule', [App\Http\Controllers\InterviewController::class, 'schedule']);
 
+// Recruitment Metrics Dashboard
+
+Route::get('/recruitment', [App\Http\Controllers\RecruitmentController::class, 'index']);
+Route::get('/recruitment/details/{id}', [App\Http\Controllers\RecruitmentController::class, 'details']);
+Route::get('/recruitment/updateStatus/{id}', [App\Http\Controllers\RecruitmentController::class, 'update']);
+Route::post('/recruitment/updateStatus/{id}', [App\Http\Controllers\RecruitmentController::class, 'updateStatus']);
 });
+
 Route::post('/interview/applicantNameList', [App\Http\Controllers\InterviewController::class, 'applicantNameList'])->withoutMiddleware('web', 'csrf');
 Route::post('/interview/jobsList/{id}', [App\Http\Controllers\InterviewController::class, 'getJobsList'])->withoutMiddleware('web', 'csrf');
+
 // signup
 Route::get('/signup', function(){
     return view('signup');

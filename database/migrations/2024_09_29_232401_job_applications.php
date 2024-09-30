@@ -9,6 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+
     public function up(): void
     {
         Schema::create('job_applications', function(Blueprint $table){
@@ -20,6 +21,8 @@ return new class extends Migration
             $table->string('resume');
             $table->string('application_status');
             $table->string('notes');
+            $table->boolean('is_hired');
+            $table->boolean('is_rejected');
             $table->timestamps();
         });
     }
@@ -31,4 +34,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('job_applications');
     }
+    
 };
