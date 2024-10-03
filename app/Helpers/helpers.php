@@ -3,6 +3,7 @@
 use App\Models\Jobs;
 use App\Models\JobApplications;
 use App\Models\Interview;
+use App\Models\CustomReports;
 
 function getJobDetails($id) {
     $job = Jobs::where('id', $id)->first();
@@ -24,6 +25,11 @@ function interviewHiredCount(){
 
 function interviewRejectedCount(){
     return JobApplications::where('is_rejected', 1)->count();
+}
+
+
+function CustomReportCount(){
+    return CustomReports::count();
 }
 
 function getJobsCount() {

@@ -741,13 +741,13 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Report Name</label>
-                  <p>Hello</p>
+                  <p>{{ $report->report_name }}</p>
                 </div>
                 
                 <!-- /.form-group -->
                 <div class="form-group">
                 <label>Created By</label>
-                    <p>Umar</p>
+                    <p>{{ $report->created_by }}</p>
                 </div>
                 <!-- /.form-group -->
               </div>
@@ -756,7 +756,7 @@
                 <div class="form-group">
                 <div class="form-group">
                   <label>Date Created</label>
-                  <p>15-01-2024</p>
+                  <p>{{ $report->created_at }}</p>
                 </div>
               </div>
                 <!-- /.form-group -->
@@ -771,28 +771,19 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>Job Title</th>
-                      <th>Department</th>
-                      <th>Date Created</th>
-                      <th>Status</th>
-                      <th>Actions</th>
+                      @foreach ($report->selected_fields as $field)
+                      <th>{{ $field }}</th>
+                      @endforeach
                     </tr>
                   </thead>
                   <tbody>
-                    <tr><td>1</td>
-                    <td>Umar</td>
-                    <td>Developer</td>
-                    <td>On review</td>
-                    <td>Today</td>
+                    <tr>
+                    @foreach ($report->selected_fields as $field)
+                    @foreach ($application as $a)
+                      <td>{{ $a->$field }}</td>
+                      @endforeach
+                      @endforeach
                     <td>
-                    <div class="btn-group">
-                        <a href="http://localhost:8000/jobs/view" class="btn btn-info">View</a>
-                    
-                        <a href="http://localhost:8000/jobs/edit" class="btn btn-info">Move to Next Stage</a>
-
-                        <a href="http://localhost:8000/jobs/delete" class="btn btn-info">Reject</a>
-                        </div>
                     </td>
                     </tr></tbody>
                 </table>
@@ -804,9 +795,9 @@
             </div>
             <br>
             <div class="card-footer">
-              <button type="submit" class="btn btn-primary">Edit Report</button>
-              <button type="submit" class="btn btn-primary">Delete Report</button>
-              <button type="submit" class="btn btn-primary">Export Report</button>
+              <a href="{{ url('/custom-reports/edit/' )}}/{{$report->id}}" class="btn btn-primary">Edit Report</a>
+              <a href="{{ url('/custom-reports/delete/' )}}/{{$report->id}}" class="btn btn-primary">Delete Report</a>
+              <a href="{{ url('/pdfs' )}}/{{$report->report_pdf}}" download class="btn btn-primary">Export Report</a>
             </div>
             <!-- /.row -->
 

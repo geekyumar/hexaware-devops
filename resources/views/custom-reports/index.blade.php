@@ -737,11 +737,11 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
+                <h3>{{ CustomReportCount() }}</h3>
 
                 <p>No. of Custom Reports</p>
               </div>
-              <a href="#" class="small-box-footer">Add New Custom Report <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="{{ url('/custom-reports/create') }}" class="small-box-footer">Add New Custom Report <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -772,33 +772,35 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
-                  <thead>
-                    <tr> 
-                      <th>ID</th>
-                      <th>Report Name</th>
-                      <th>Date Created</th>
-                      <th>Created By</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                  <td>1</td>
-                  <td>Umar</td>
-                  <td>Developer</td>
-                  <td>On review</td>
-                    <td>
-                  <div class="btn-group">
-                        <a href="{{ url('/jobs/view/') }}" class="btn btn-info">View</a>
-                        <a href="{{ url('/jobs/edit') }}" class="btn btn-info">Edit</a>
-                        <a href="{{ url('/jobs/edit') }}" class="btn btn-info">Delete</a>
-                        <a href="{{ url('/jobs/delete') }}" class="btn btn-info">Export</a>
-                      </div>
-</td>
-
-                  </tbody>
-                </table>
+              <table class="table table-hover text-nowrap">
+    <thead>
+        <tr> 
+            <th>ID</th>
+            <th>Report Name</th>
+            <th>Date Created</th>
+            <th>Created By</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($reports as $report)
+        <tr> <!-- Start a new row for each report -->
+            <td>{{ $report->id }}</td>
+            <td>{{ $report->report_name }}</td>
+            <td>{{ $report->created_at }}</td>
+            <td>{{ $report->created_by }}</td>
+            <td>
+                <div class="btn-group">
+                    <a href="{{ url('/custom-reports/view') }}/{{$report->id}}" class="btn btn-info">View</a>
+                    <a href="{{ url('/custom-reports/edit') }}/{{$report->id}}" class="btn btn-info">Edit</a>
+                    <a href="{{ url('/custom-reports/delete') }}/{{$report->id}}" class="btn btn-info">Delete</a>
+                    <a href="{{ url('/pdfs' )}}/{{$report->report_pdf}}" download class="btn btn-info">Export</a>
+                </div>
+            </td>
+        </tr> <!-- Close the row -->
+        @endforeach
+    </tbody>
+</table>
               </div>
               <!-- /.card-body -->
             </div>

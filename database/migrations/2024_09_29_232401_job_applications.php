@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('notes');
             $table->boolean('is_hired');
             $table->boolean('is_rejected');
+            $table->string('source');
             $table->timestamps();
         });
     }

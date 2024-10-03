@@ -42,9 +42,12 @@ Route::get('/applications/notifications/delete/{id}', [App\Http\Controllers\Appl
 // Custom Reports Route
 
 Route::get('/custom-reports', [App\Http\Controllers\CustomReportController::class, 'index']);
+Route::post('/custom-reports/create',  [App\Http\Controllers\CustomReportController::class, 'create']);
 Route::get('/custom-reports/create', function() { return view('custom-reports.create');});
-Route::get('/custom-reports/view', function() { return view('custom-reports.view');});
-Route::get('/custom-reports/edit', function() { return view('custom-reports.edit');});
+Route::get('/custom-reports/view/{id}', [App\Http\Controllers\CustomReportController::class, 'view']);
+Route::get('/custom-reports/edit/{id}',  [App\Http\Controllers\CustomReportController::class, 'editPage']);
+Route::post('/custom-reports/edit/{id}',  [App\Http\Controllers\CustomReportController::class, 'edit']);
+Route::get('/custom-reports/delete/{id}',  [App\Http\Controllers\CustomReportController::class, 'delete']);
 Route::post('/custom-reports/create', [App\Http\Controllers\CustomReportController::class, 'create']);
 
 // Application Forms Management Route

@@ -734,20 +734,20 @@
             <h3 class="card-title">Edit Report</h3>
           </div>
           <!-- /.card-header -->
-        <form method="post" action="{{ url('/jobs/create') }}">
+        <form method="post" action="{{ url('/custom-reports/edit/') }}/{{$report->id}}">
           @csrf
           <div class="card-body">
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Report Name</label>
-                  <input class="form-control" name="job_title" placeholder="Report Name" style="width: 100%;">
+                  <input class="form-control" name="report_name" placeholder="Report Name" value="{{$report->report_name}}" style="width: 100%;">
                 </div>
                 
                 <!-- /.form-group -->
                 <div class="form-group">
                 <label>Status</label>
-                  <select class="select2" data-placeholder="Select a Department" name="status" style="width: 100%;">
+                  <select class="select2" data-placeholder="Select a Department" name="application_status" style="width: 100%;">
                     <option disabled selected>Select Status</option>
                     <option></option>
                     <option>New</option>
@@ -763,10 +763,10 @@
                 <div class="form-group">
                 <div class="form-group">
                   <label>Date Range</label>
-                  <input class="form-control" type="date" name="date_range" placeholder="Date Range" style="width: 100%;">
+                  <input class="form-control" type="date" name="created_at" placeholder="Date Range" style="width: 100%;">
                 </div>
                 <label>Position</label>
-                  <select class="select2" data-placeholder="Select a Department" name="position" style="width: 100%;">
+                  <select class="select2" data-placeholder="Select a Department" style="width: 100%;">
                     <option disabled selected>Select Position</option>
                     <option>HR</option>
                     <option>IT (Developer)</option>
@@ -787,7 +787,7 @@
               <div class="form-group">
                 <div class="form-group">
                   <label>Source</label>
-                  <select class="form-control select2" data-placeholder="Select an Employment Type" name="employment_type" style="width: 100%;">
+                  <select class="form-control select2" data-placeholder="Select an Employment Type" name="source" style="width: 100%;">
                     <option selected disabled>Select Source</option>
                     <option>Job Board</option>
                     <option>Referral</option>
@@ -797,27 +797,59 @@
                 <!-- /.form-group -->
                 <br>
                   <div class="form-group">
-                    <label for="fieldsToInclude">Fields to Include</label>
+                    <label for="selected_fields">Fields to Include</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="applicantName" name="fieldsToInclude[]" value="applicantName">
+                        <input class="form-check-input" type="checkbox" id="applicantName" name="selected_fields[]" value="applicant_name"
+                        @foreach ($report->selected_fields as $fields)
+                        @if($fields == 'applicant_name')
+                        checked 
+                        @endif
+                        @endforeach
+                        >
                         <label class="form-check-label" for="applicantName">
                             Applicant Name
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="dateApplied" name="fieldsToInclude[]" value="dateApplied">
+                        <input class="form-check-input" type="checkbox" id="dateApplied" name="selected_fields[]" value="created_at"
+                        
+                        @foreach ($report->selected_fields as $fields)
+                        @if($fields == 'created_at')
+                        checked 
+                        @endif
+                        @endforeach
+
+                        >
                         <label class="form-check-label" for="dateApplied">
                             Date Applied
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="status" name="fieldsToInclude[]" value="status">
+                        <input class="form-check-input" type="checkbox" id="status" name="selected_fields[]" value="application_status"
+                        
+                                                
+                        @foreach ($report->selected_fields as $fields)
+                        @if($fields == 'application_status')
+                        checked 
+                        @endif
+                        @endforeach
+
+                        >
                         <label class="form-check-label" for="status">
                             Status
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="source" name="fieldsToInclude[]" value="source">
+                        <input class="form-check-input" type="checkbox" id="source" name="selected_fields[]" value="source"
+                        
+                                                
+                        @foreach ($report->selected_fields as $fields)
+                        @if($fields == 'source')
+                        checked 
+                        @endif
+                        @endforeach
+
+                        >
                         <label class="form-check-label" for="source">
                             Source
                         </label>
