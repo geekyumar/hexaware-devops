@@ -18,7 +18,6 @@ class CustomReportController extends Controller
 
         $query = JobApplications::query();
 
-        // Loop through POST parameters
         foreach ($request->all() as $field => $value) {
             $skip = ['_token', 'report_name', 'selected_fields'];
             if(in_array($field, $skip)){
@@ -31,13 +30,12 @@ class CustomReportController extends Controller
 
         $data = $query->get();
 
-        $html = '<h1>Custom Reports Data</h1>';
+        $html = '<head><meta charset="UTF-8"></head><h1>Custom Reports Data</h1>';
         $html .= '<h2>Report Name: ' . $request->post('report_name') . '</h2>';
         $html .= '<table border="1" cellpadding="5" cellspacing="0" style="width: 100%;">';
         $html .= '<thead>';
         $html .= '<tr>';
         
-        // Add table headers
         foreach ($request->post('selected_fields') as $field) {
             $html .= '<th>' . htmlspecialchars($field) . '</th>';
         }
@@ -45,11 +43,9 @@ class CustomReportController extends Controller
         $html .= '</thead>';
         $html .= '<tbody>';
         
-        // Loop through each data item
         foreach ($data as $datas) {
-            $html .= '<tr>'; // Start a new row for each data item
+            $html .= '<tr>';
             foreach ($request->post('selected_fields') as $row) {
-                // Ensure $row corresponds to a valid property on $datas
                 $html .= '<td>' . htmlspecialchars($datas->$row) . '</td>';
             }
             $html .= '</tr>';
@@ -60,7 +56,6 @@ class CustomReportController extends Controller
 
         $fileName = 'custom-reports-' . time() . '.pdf';
 
-        // Load the HTML content into the PDF generator
         $pdf = Pdf::loadHTML($html)->save(public_path('pdfs/' . $fileName));
 
         $report = new CustomReports();
@@ -99,13 +94,12 @@ class CustomReportController extends Controller
 
         $data = $query->get();
 
-        $html = '<h1>Custom Reports Data</h1>';
+        $html = '<head><meta charset="UTF-8"></head><h1>Custom Reports Data</h1>';
         $html .= '<h2>Report Name: ' . $report_data->report_name . '</h2>';
         $html .= '<table border="1" cellpadding="5" cellspacing="0" style="width: 100%;">';
         $html .= '<thead>';
         $html .= '<tr>';
-        
-        // Add table headers
+
         foreach ($request->post('selected_fields') as $field) {
             $html .= '<th>' . htmlspecialchars($field) . '</th>';
         }
@@ -113,11 +107,9 @@ class CustomReportController extends Controller
         $html .= '</thead>';
         $html .= '<tbody>';
         
-        // Loop through each data item
         foreach ($data as $datas) {
-            $html .= '<tr>'; // Start a new row for each data item
+            $html .= '<tr>';
             foreach ($request->post('selected_fields') as $row) {
-                // Ensure $row corresponds to a valid property on $datas
                 $html .= '<td>' . htmlspecialchars($datas->$row) . '</td>';
             }
             $html .= '</tr>';
@@ -134,7 +126,6 @@ class CustomReportController extends Controller
             return response()->json(['error' => 'the report file is not found!']);
         }
 
-        // Load the HTML content into the PDF generator
         $pdf = Pdf::loadHTML($html)->save(public_path('pdfs/' . $fileName));
 
         $newData = [
@@ -146,7 +137,6 @@ class CustomReportController extends Controller
         CustomReports::where('id', $id)->update($newData);
 
         return redirect('/custom-reports');
-
 
     }
 
