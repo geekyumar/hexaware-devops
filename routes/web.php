@@ -90,7 +90,7 @@ Route::post('/interview/jobsList/{id}', [App\Http\Controllers\InterviewControlle
 
 // signup
 Route::get('/signup', function(){
-    return view('signup');
+    return view('auth.signup');
 });
 Route::post('/register', [App\Http\Controllers\signupcontroller::class,'signup']);
 

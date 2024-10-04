@@ -27,8 +27,8 @@ class signupcontroller extends Controller
             'password' => Hash::make($request->password)
         ]);
         if(!$userdetails){
-            return response()->json(['error' => 'error saving details to db!'], 500);
+            return redirect()->back()->withErrors(['message' => 'Signup failed!']);
         }
-        return response()->json(['message' => 'signup done!']);
+        return redirect()->back()->withErrors(['message' => 'Signup done!']);
     }
 }

@@ -28,7 +28,7 @@ class ForgotPasswordController extends Controller
 
         $userDetails = User::where('email', $request->email)->first();
         if(!$userDetails){
-            return response()->json(['error' => 'The user is not found!'], 500);
+            return redirect()->back()->withErrors(['message' => 'User Not Found!']);
         }
 
         $token = Str::random(128);
@@ -53,15 +53,15 @@ class ForgotPasswordController extends Controller
         
         Thank you!";
 
-        $m = Mail::raw($mail_content, function ($message) {
-        $message->to('umar.farooq.000000001@gmail.com')
+        $m = Mail::raw($mail_content, function ($message) use ($userDetails) {
+        $message->to($userDetails->email)
             ->subject('Password Recovery Request');
         });
 
         if($m){
-            return response()->json(['message' => 'mail sent!']);
+            return redirect()->back()->withErrors(['message' => 'Password recovery link sent to your email!']);
         } else {
-            return response()->json(['message' => 'mail send failed!']);
+            return redirect()->back()->withErrors(['message' => 'Failed in sending recovery mail. please try again.']);
         }
     }
 

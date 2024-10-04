@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Registration Page (v2)</title>
+  <title>Registration | Hexaware</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -24,7 +24,6 @@
     <div class="card-body">
       <!--<p class="login-box-msg">Register a new membership</p>-->
       <!-- <div id="error-message" class="alert alert-danger" style="display :none;"> -->
-    </div>
 
       <form action="{{url('/register') }}" method="post">
         @csrf
@@ -92,10 +91,14 @@
             <div class="col-7 mx-auto">
               <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
             </div>
+            @error('message')
+        <p class="login-box-msg text-center"><h6 class="text-center"><b>{{ $message }}</b></h6> </p>
+        @enderror
+        
           <!-- </form> -->
           <!-- /.col -->
           <div class="col-7 mx-auto text-center mt-3">
-            <a href="login-v2.html" class="btn btn-link">Back to Login</a>
+            <a href="{{ url('/login') }}" class="btn btn-link">Back to Login</a>
           </div>
         
         </div>

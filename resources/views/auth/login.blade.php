@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Log in (v2)</title>
+  <title>Log in | Hexaware</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -70,8 +70,12 @@
           <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block">Login</button>
           </div>
+          
           <!-- /.col -->
         </div>
+        @error('message')
+        <p class="login-box-msg text-center"><h6 class="text-center"><b>{{ $message }}</b></h6> </p>
+        @enderror
       </form><br>
 
       <!--<div class="social-auth-links text-center mt-2 mb-3">

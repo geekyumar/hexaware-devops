@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Recover Password (v2)</title>
+  <title>Reset Password - {{ $email }} </title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -55,6 +55,11 @@
           </div>
           <!-- /.col -->
         </div>
+
+        @error('message')
+        <p class="login-box-msg text-center"><h6 class="text-center"><b>{{ $message }}</b></h6> </p>
+        @enderror
+
       </form>
 
       <!--<p class="mt-3 mb-1">
