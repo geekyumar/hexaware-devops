@@ -134,7 +134,12 @@ class ApplicationFormController extends Controller
         }
 
         Schema::table('application_forms', function (Blueprint $table) use ($request) {
-            $table->string($request->post('field_name'))->nullable();
+            switch($request->post('field_type')){
+                case 'checkbox':
+                    $table->json($request->post('field_name'))->nullable();
+                default: 
+                    $table->string($request->post('field_name'))->nullable();
+            }
         });
 
         $formArray = [
@@ -180,9 +185,22 @@ class ApplicationFormController extends Controller
             return response()->json(['errors' => $validator->errors()]);
         }
 
-        // Schema::table('application_forms', function (Blueprint $table) use ($request) {
-        //     $table->string($request->post('field_name'))->nullable()->change();
-        // });
+        $field_data = FormsAddField::where('id', $id)->first();
+
+        Schema::table('application_forms', function (Blueprint $table) use ($request, $field_data) {
+            $table->renameColumn($field_data->field_name, $request->post('field_name'));
+        });
+        
+        Schema::table('application_forms', function (Blueprint $table) use ($request) {
+            switch ($request->post('field_type')) {
+                case 'checkbox':
+                    $table->json($request->post('field_name'))->nullable()->change();
+                    break;
+                default: 
+                    $table->string($request->post('field_name'))->nullable()->change();
+                    break;
+            }
+        });
 
         $formArray = [
             'field_name' => $request->post('field_name'),

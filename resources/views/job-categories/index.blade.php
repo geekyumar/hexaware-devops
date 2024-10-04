@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Create Application Form - Hexaware</title>
+  <title>Edit Report - Hexaware</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -44,7 +44,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1><b>Form Creation</b></h1>
+            <h1><b>Job Catogories Management</b></h1>
           </div>
           <div class="col-sm-6">
           </div>
@@ -57,235 +57,72 @@
       <div class="container-fluid">
         <!-- SELECT2 EXAMPLE -->
         <div class="card card-default">
-          <div class="card-header">
-            <h3 class="card-title">Form Creation</h3>
-          </div>
+         
           <!-- /.card-header -->
-          <form method="post" action="{{ url('/application-forms/create') }}">
+        <form method="post" action="{{ url('/job-categories/create') }}">
             @csrf
             <div class="card-body">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="formName">Form Name</label>
-                    <input type="text" class="form-control" id="formName" name="form_name" placeholder="Enter the form name" required>
-                    <div class="invalid-feedback">
-                      Please enter the form name.
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="associatedJob">Associated Job</label>
-                    <select class="form-control" name="associated_jobs" required>
-                      <option value="" disabled selected>Select a job</option>
-                      <!-- List of job postings as options -->
-                      <option>Job Posting 1</option>
-                      <option>Job Posting 2</option>
-                      <option>Job Posting 3</option>
-                    </select>
-                    <div class="invalid-feedback">
-                      Please select a job.
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-              @foreach ($formFields as $field)
-
-              @php $fieldOptions = json_decode($field->field_options, true) @endphp
-              
-              @switch($field->field_type)
-    @case('textbox')
-        <div class="col-md-6">
-        <div class="form-group">
-            <label for="{{ $field->field_name }}">{{ $field->field_name }}</label>
-            <input type="text" class="form-control" name="{{ $field->field_name }}" required>
-        </div>
-        </div>
-        @break
-
-    @case('date')
-        <div class="form-group">
-            <label for="{{ $field->field_name }}">{{ $field->field_name }}</label>
-            <input type="date" class="form-control" name="{{ $field->field_name }}" required>
-        </div>
-        @break
-
-    @case('dropdown')
-        <div class="form-group">
-            <label for="{{ $field->field_name }}">{{ $field->field_name }}</label>
-            <select class="form-control" name="{{ $field->field_name }}" required>
-                <!-- Example options, these can be dynamic -->
-                @foreach ($fieldOptions as $options)
-                    <option>{{ $options }}</option>
-                    @endforeach
-            </select>
-        </div>
-        @break
-
-    @case('checkbox')
-        <div class="form-group">
-            <label>{{ $field->field_name }}</label><br>
-
-            @foreach ($fieldOptions as $options)
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input" value="{{ $options }}" name="{{ $field->field_name }}[]">
-                <label class="form-check-label">{{ $options }}</label>
-            </div>
-                    @endforeach
-        </div>
-        @break
-
-    @case('radio')
-        <div class="form-group">
-            <label>{{ $field->field_name }}</label><br>
-
-            @foreach ($fieldOptions as $options)
-            <div class="form-check">
-                <input type="radio" class="form-check-input" id="{{ $field->field_name }}1" value="{{ $options }}" name="{{ $field->field_name }}" required>
-                <label class="form-check-label" for="{{ $field->field_name }}1">{{ $options }}</label>
-            </div>
-                    @endforeach
-        </div>
-        @break
-
-    @default
-        <p>Unknown field type: {{ $field->field_type }}</p>
-@endswitch
-              
-              @endforeach
-
-                        
-              <!-- Save Form Button -->
-              <div class="form-group">
-                <div class="row mt-3">
-                  <div class="col-md-12 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary btn-sm" id="saveFormButton">
-                      Save Form
-                    </button>
-                  </div>
-                </div>
-
-</form>
-          
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Form Fields</label>
-                    <a href="/application-forms/add-field" class="btn btn-primary btn-sm ml-2" >
-                      Add Field
-                      </a>
-                  </div>
-                </div>
-              </div>
-          
-              <div class="row">
-                <div class="col-md-12">
-                  <label class="pt-2">Field List Table</label>
-                  <div class="card-body table-responsive p-0 pt-2">
-                    <table class="table table-hover text-nowrap">
-                      <thead>
-                        <tr>
-                          <th>Field Name</th>
-                          <th>Field Type</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <!-- Example Row 1 -->
-                         @foreach ($fields as $field)
-                        <tr>
-                          <td>{{ $field->field_name }}</td>
-                          <td>{{ $field->field_type }}</td>
-                          <td>
-                            <div class="btn-group">
-                              <a href="{{ url('/application-forms/editField') }}/{{ $field->id }}" class="btn btn-warning btn-sm">Edit</a>
-                              <a href="{{ url('/application-forms/deleteField') }}/{{ $field->id }}" class="btn btn-danger btn-sm">Delete</a>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <!-- Category Type Dropdown -->
+                            <div class="col-md-5"> <!-- Equal size for both fields -->
+                                <label>Category Type</label>
+                                <select class="form-control" name="category_type" required>
+                                    <option disabled selected>Select category type</option>
+                                    <option value="Department">Department</option>
+                                    <option value="Location">Location</option>
+                                    <option value="Employment Type">Employment Type</option>
+                                </select>
                             </div>
-                          </td>
-                        </tr>
-                        @endforeach
-                      </tbody>
+            
+                            <!-- Category Name Textbox -->
+                            <div class="col-md-5"> <!-- Equal size for both fields -->
+                                <label>Category Name</label>
+                                <input class="form-control" name="category_name" placeholder="Enter the category name" required>
+                            </div>
+            
+                            <!-- Add Category Button -->
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary" id="addCategoryBtn" style="width: 100%;">Add Category</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</form>
+            
+                <label class="pt-2" style="display: block; margin-top: 20px;">Categories List</label> <!-- Ensure it's a block element -->
+            
+                <div class="card-body table-responsive p-0 pt-2">
+                    <table class="table table-hover text-nowrap">
+                        <thead>
+                            <tr>
+                                <th>Category Type</th>
+                                <th>Category Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($categories as $c)
+                            <tr>
+                                <td>{{ $c->category_type }}</td>
+                                <td>{{ $c->category_name }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="{{ url('job-categories/edit') }}/{{$c->id}}" class="btn btn-info">Edit</a>
+                                        <a href="{{ url('job-categories/delete') }}/{{$c->id}}" class="btn btn-info">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
                     </table>
-                  </div>
                 </div>
-              </div>
+            </div>
+            
                 
-              </div>
-            </div>
-          
-
-              
-                <!--<!--<label>Position</label>
-                  <select class="select2" data-placeholder="Select a Department" name="position" style="width: 100%;">
-                    <option disabled selected>Select Position</option>
-                    <option>HR</option>
-                    <option>IT (Developer)</option>
-                    <option>Marketing</option>
-                    <option>Sales</option>
-                    <option>Finance</option>
-                    <option>Auditing</option>
-                  </select>
-                </div>
-                 /.form-group -->
-
-                <!-- /.form-group -->
-              </div>
-              <!-- /.col -->
-            </div>
-            <!--<div class="row">
-              <div class="col-md-6">
-              <div class="form-group">
-                <div class="form-group">
-                  <label>Source</label>
-                  <select class="form-control select2" data-placeholder="Select an Employment Type" name="employment_type" style="width: 100%;">
-                    <option selected disabled>Select Source</option>
-                    <option>Job Board</option>
-                    <option>Referral</option>
-                  </select>
-                </div>
-            </div>
-                <!-- /.form-group -->
-                <!--<br>
-                  <div class="form-group">
-                    <label for="fieldsToInclude">Fields to Include</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="applicantName" name="fieldsToInclude[]" value="applicantName">
-                        <label class="form-check-label" for="applicantName">
-                            Applicant Name
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="dateApplied" name="fieldsToInclude[]" value="dateApplied">
-                        <label class="form-check-label" for="dateApplied">
-                            Date Applied
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="status" name="fieldsToInclude[]" value="status">
-                        <label class="form-check-label" for="status">
-                            Status
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="source" name="fieldsToInclude[]" value="source">
-                        <label class="form-check-label" for="source">
-                            Source
-                        </label>
-                    </div>
-                </div>
-                <!-- /.form-group -->
-              </div>
-              <!-- /.col -->
-              <!-- /.col -->
-            </div>
-            <br>
-            <!--<div class="card-footer">
-              <button type="submit" class="btn btn-primary">Generate Report</button>
-            </div>
+                
+                
             <!-- /.row -->
 
             <!-- /.row -->
@@ -295,7 +132,6 @@
         <!-- /.row -->
       </div>
       <!-- /.container-fluid -->
-
     </section>
     <!-- /.content -->
   </div>
@@ -495,4 +331,4 @@
   // DropzoneJS Demo Code End
 </script>
 </body>
-</html>-->
+</html>

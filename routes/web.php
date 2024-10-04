@@ -27,6 +27,15 @@ Route::get('/jobs/edit/{id}', [App\Http\Controllers\JobController::class, 'edit'
 Route::post('/jobs/edit/{id}', [App\Http\Controllers\JobController::class, 'update']);
 Route::get('/jobs/delete/{id}', [App\Http\Controllers\JobController::class, 'delete']);
 
+// Job Categories Route
+
+Route::get('/job-categories', [App\Http\Controllers\JobCategoryController::class, 'index']);
+Route::get('/job-categories/create', [App\Http\Controllers\JobCategoryController::class, 'createPage']);
+Route::get('/job-categories/edit/{id}', [App\Http\Controllers\JobCategoryController::class, 'editPage']);
+Route::post('/job-categories/edit/{id}', [App\Http\Controllers\JobCategoryController::class, 'edit']);
+Route::get('/job-categories/delete/{id}', [App\Http\Controllers\JobCategoryController::class, 'delete']);
+Route::post('/job-categories/create', [App\Http\Controllers\JobCategoryController::class, 'create']);
+
 
 // Application Tracking Route
 
