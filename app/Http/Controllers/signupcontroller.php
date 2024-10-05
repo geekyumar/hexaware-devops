@@ -24,6 +24,7 @@ class signupcontroller extends Controller
         $userdetails = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'role' => $request->post('role'),
             'password' => Hash::make($request->password)
         ]);
         if(!$userdetails){

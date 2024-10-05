@@ -76,6 +76,18 @@
             </div>
           </div>
         </div>
+
+        <div class="form-group pb-3">
+          <label>Role</label>
+                  <select class="select2" name="role" style="width: 100%;">
+                    <option disabled selected>Select Role</option>
+                    <option>Admin</option>
+                    <option>HR Manager</option>
+                    <option>Recruiter</option>
+                    <option>Interviewer</option>
+                    <option>Candidate</option>
+                  </select>
+        </div>
         
         <!--<div class="row">
           <div class="col-8">

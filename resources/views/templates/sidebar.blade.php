@@ -6,6 +6,14 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
+
+    <ul class="navbar-nav ml-auto">
+      <!-- Navbar Search -->
+      <li class="nav-item">
+        <a href="/logout" class="p-10" >Logout</a>
+      </li>
+    </ul>
+
   </nav>
   
   <!-- Main Sidebar Container -->
@@ -22,6 +30,7 @@
         <div class="info">
           <h4 class="text-white">{{ auth()->user()->name }}</h4>
           <p class="text-white">{{ auth()->user()->email }}</p>
+          <p class="text-white">{{ auth()->user()->role }}</p>
         </div>
       </div>
 
@@ -235,6 +244,15 @@
               </li>
              
         </ul>
+        <li class="nav-item">
+            <a href="{{ url('/profile') }}" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Profile
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+  </li>
       </nav>
       <!-- /.sidebar-menu -->
     </div>

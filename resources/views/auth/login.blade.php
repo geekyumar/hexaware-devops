@@ -30,9 +30,9 @@
       <form action="{{ url('/login') }}" method="post">
         @csrf
         <div class="form-group">
-          <label for="usernameEmailInput">Username or Email</label>
+          <label for="usernameEmailInput">Email</label>
           <div class="input-group mb-3">
-            <input type="text" class="form-control" id="usernameEmailInput" placeholder="Enter your username or email" name="email" required>
+            <input type="text" class="form-control" id="usernameEmailInput" placeholder="Enter your email" name="email" required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>

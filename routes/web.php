@@ -92,6 +92,12 @@ Route::get('/recruitment', [App\Http\Controllers\RecruitmentController::class, '
 Route::get('/recruitment/details/{id}', [App\Http\Controllers\RecruitmentController::class, 'details']);
 Route::get('/recruitment/updateStatus/{id}', [App\Http\Controllers\RecruitmentController::class, 'update']);
 Route::post('/recruitment/updateStatus/{id}', [App\Http\Controllers\RecruitmentController::class, 'updateStatus']);
+
+// Profile Routes
+
+Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index']);
+Route::post('/profile', [App\Http\Controllers\ProfileController::class, 'update']);
+
 });
 
 Route::post('/interview/applicantNameList', [App\Http\Controllers\InterviewController::class, 'applicantNameList'])->withoutMiddleware('web', 'csrf');
@@ -102,6 +108,11 @@ Route::get('/signup', function(){
     return view('auth.signup');
 });
 Route::post('/register', [App\Http\Controllers\signupcontroller::class,'signup']);
+
+// GenAI Integration Routes
+
+Route::post('/openai', [App\Http\Controllers\GenAIController::class, 'generateSummary'])->withoutMiddleware('web', 'csrf');
+
 
 //login
 Route::get('/login', function(){
