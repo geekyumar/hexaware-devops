@@ -98,6 +98,11 @@ Route::post('/recruitment/updateStatus/{id}', [App\Http\Controllers\RecruitmentC
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index']);
 Route::post('/profile', [App\Http\Controllers\ProfileController::class, 'update']);
 
+// GenAI Integration Routes
+
+Route::get('/application/summary/generate', [App\Http\Controllers\GenAIController::class, 'generateSummary']);
+
+
 });
 
 Route::post('/interview/applicantNameList', [App\Http\Controllers\InterviewController::class, 'applicantNameList'])->withoutMiddleware('web', 'csrf');
@@ -108,10 +113,6 @@ Route::get('/signup', function(){
     return view('auth.signup');
 });
 Route::post('/register', [App\Http\Controllers\signupcontroller::class,'signup']);
-
-// GenAI Integration Routes
-
-Route::post('/openai', [App\Http\Controllers\GenAIController::class, 'generateSummary'])->withoutMiddleware('web', 'csrf');
 
 
 //login

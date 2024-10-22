@@ -109,6 +109,22 @@
                   <label>Location</label>
                   <p>{{$job->job_location}}</p>
                 </div>
+                <div class="form-group">
+                  <label>Generate AI Summary</label>
+                  <button type="button" id="generateSummary" class="btn btn-block btn-secondary col-4">Generate Summary</button>
+                  <br>
+
+                  <p id="summary"></p>
+                 
+                  <div style="display: flex; align-items: center;">
+    <span class="pt-1"style="margin-right: 8px">GenAI powered by</span>
+    <img 
+        src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg" 
+        style="width: 3em; height: 3em; " 
+        alt="Google Gemini Logo"
+    >
+</div>
+                </div>
                 <!-- /.form-group -->
               </div>
               <!-- /.col -->
@@ -348,5 +364,45 @@
   }
   // DropzoneJS Demo Code End
 </script>
+
+<script>
+
+$('#generateSummary').on('click', () => {
+  $('#generateSummary').text('Generating..').addClass('disabled');
+  $('#summary').empty();
+
+  $.ajax({
+    url: '{{url('/application/summary/generate')}}',
+    type: 'get',
+
+    success: (response) => {
+      printWordByWord(response.data);
+      $('#generateSummary').text('Regenerate again').removeClass('disabled');
+    },
+
+    error: (xhr, response)=>{
+      if(xhr.status == 500 || xhr.status == 404){
+        $('#summary').text('API request failed! please try again.')
+        $('#generateSummary').text('Regenerate again').removeClass('disabled');
+      }
+    }
+  });
+});
+
+function printWordByWord(text) {
+  const words = text.split(' '); 
+  let index = 0;
+
+  const interval = setInterval(() => {
+    if (index < words.length) {
+      $('#summary').append(words[index] + ' ');
+      index++;
+    } else {
+      clearInterval(interval);
+    }
+  }, 50);
+}
+
+  </script>
 </body>
 </html>
